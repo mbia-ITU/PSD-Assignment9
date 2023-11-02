@@ -66,6 +66,11 @@
 
 ### 10.1.ii
 
+The Length macro determines the number of blocks associated with the header.
+
+The Colour macro gives the colour of the block header.
+
+The Paint macro sets the colour of the block header.
 ## 10.2
 
 ## 10.3
