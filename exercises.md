@@ -71,6 +71,17 @@ The Length macro determines the number of blocks associated with the header.
 The Colour macro gives the colour of the block header.
 
 The Paint macro sets the colour of the block header.
+
+### 10.1.iii
+
+allocate() is only called when interpreting the CONS instructions, since the CONS is te only heap allocated data structure in the abstract machine.
+
+there are no other interactions between the garbage collector and the abstract machine.
+
+### 10.1.iv
+
+allocate() is the only function that calls collect(), and in only in the case that there are no more heap space available to allocate.
+
 ## 10.2
 
 ## 10.3
