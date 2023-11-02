@@ -358,7 +358,7 @@ int execcode(word p[], word s[], word iargs[], int iargc, int /* boolean */ trac
     case CAR: {
       word* p = (word*)s[sp];
       if (p == 0) {
-	printf("Cannot take car of null\n"); return -1;
+	      printf("Cannot take car of null\n"); return -1;
       }
       s[sp] = (word)(p[1]);
     } break;
