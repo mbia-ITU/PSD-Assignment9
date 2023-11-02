@@ -471,14 +471,43 @@ void initheap() {
   freelist = &heap[0];
 }
 
+void mark(word* block){
+  if ((Color(block[0])) != White) return;
+  block[0] = Paint(block[0], Black);
+
+  if(BlockTag(block[0]) == CONSTAG){
+    if (block[1] != 0 && !IsInt(block[1])) mark(&block[1]);
+    if (block[2] != 0 && !IsInt(block[2])) mark(&block[2]);  
+  }
+}
+
 void markPhase(word s[], word sp) {
-  printf("marking ...\n");
-  // TODO: Actually mark something
+  for(int i = 0; i<=sp; i++){
+    if(s[i] != 0) mark(&s[i]);
+  }
 }
 
 void sweepPhase() {
-  printf("sweeping ...\n");
-  // TODO: Actually sweep
+  word* currentAddress = heap;
+  while(currentAddress < afterHeap){
+    word header = *currentAddress;
+    switch (Color(header))
+    {
+    case White:
+      currentAddress[0] = Paint(header, Blue);
+      currentAddress[1] = (word)freelist;
+      freelist = currentAddress;
+      break;
+
+    case Black:
+      currentAddress[0] = Paint(header, White);
+      break;
+
+    case Blue:
+      break;
+    }
+    currentAddress += Length(header)+1;
+  }
 }
 
 void collect(word s[], word sp) {

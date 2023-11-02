@@ -62,7 +62,7 @@
     ```
 
     Sets the head of a CONS pair given by a reference, to the value on top of the stack stack.
-    It does this by getting the new value and reference from the stack, and assigning the value to the CONS pair. 
+    It does this by getting the new value and reference from the stack, and assigning the value to the CONS pair.
 
 ### 10.1.ii
 
