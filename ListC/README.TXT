@@ -67,5 +67,6 @@ Run examples (assuming listmachine is a symbolic link to
 ListVM/ListVM/listmachine.exe
 
    ./listmachine ex30.out 8
+   ./listmachine.exe ex30.out 8
 
  

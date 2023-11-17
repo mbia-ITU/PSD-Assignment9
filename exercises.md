@@ -84,4 +84,50 @@ allocate() is the only function that calls collect(), and only in the case that 
 
 ## 10.2
 
+We have made changes to markPhase and sweepPhase in listmachine.c.
+We have also added the function mark.
+
+Below are two outputs from running and testing, ex35.out, and ex36.out.
+
+```{}
+ListVM>listmachine.exe ex35.out
+33 33 
+Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 333 blocks (666 words); of which 330 free (660 words, largest 2 words); 1 orphans
+44 44
+Used 0 cpu milli-seconds
+```
+
+```{}
+ListVM>listmachine.exe ex36.out
+1 Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 333 blocks (666 words); of which 331 free (662 words, largest 2 words); 1 orphans
+1
+Used 0 cpu milli-seconds
+```
+
 ## 10.3
+
+We have upgraded the sweepPhase function, to make new larger blocks.
+
+Below are two outputs from running and testing, ex35.out, and ex36.out, with the new garbage collector.
+
+```{}
+ListVM>listmachine.exe ex35.out
+33 33 Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 168 blocks (831 words); of which 165 free (825 words, largest 5 words); 1 orphans
+44 44
+Used 0 cpu milli-seconds
+```
+
+```{}
+ListVM>listmachine.exe ex36.out
+1 Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 333 blocks (666 words); of which 0 free (0 words, largest 0 words); 1 orphans
+Heap: 168 blocks (831 words); of which 166 free (827 words, largest 5 words); 1 orphans
+1
+Used 0 cpu milli-seconds
+```

@@ -475,7 +475,7 @@ void initheap() {
 void mark(word* block) {
   if (Color(block[0]) != White) {
     return;
-  } 
+  }
 
   block[0] = Paint(block[0], Black);
 
@@ -496,8 +496,8 @@ void markPhase(word s[], word sp) {
       continue;
     }
 
-    word* p = (word*) s[i];
-    mark(p);
+      word* p = (word*) s[i];
+      mark(p);
   }
 }
 
@@ -512,6 +512,9 @@ void sweepPhase() {
         addr[0] = Paint(header, Blue);
         addr[1] = (word) freelist;
         freelist = addr;
+        word nextHeader = addr[Length(header)+1];
+        if(Color(nextHeader) == White) 
+          addr[0] = mkheader(0, Length(header) + Length(nextHeader) +1 ,Blue);
         break;
       case Black:
         addr[0] = Paint(header, White);
@@ -520,11 +523,12 @@ void sweepPhase() {
         break;
     }
 
-    addr += Length(header) + 1;
+    addr += Length(*addr) + 1;
   }
 }
 
 void collect(word s[], word sp) {
+  heapStatistics();
   markPhase(s, sp);
   heapStatistics();
   sweepPhase();
