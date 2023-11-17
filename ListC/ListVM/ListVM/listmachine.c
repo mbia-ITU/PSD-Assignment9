@@ -472,13 +472,56 @@ void initheap() {
 }
 
 // Dynamic: header, car, cdr
+void mark(word* block) {
+  if (Color(block[0]) != White) {
+    return;
+  } 
+
+  block[0] = Paint(block[0], Black);
+
+  if (BlockTag(block[0]) == CONSTAG) {
+    if (!IsInt(block[1]) && block[1] != 0) {
+      mark((word*) block[1]);
+    }
+
+    if (!IsInt(block[2]) && block[2] != 0) {
+      mark((word*) block[2]);
+    }
+  }
+}
 
 void markPhase(word s[], word sp) {
-  //TODO: Implement this
+  for (int i = 0; i <= sp; i++) {
+    if (s[i] == 0 || IsInt(s[i])) {
+      continue;
+    }
+
+    word* p = (word*) s[i];
+    mark(p);
+  }
 }
 
 void sweepPhase() {
-  //TODO: Implement this
+  word* addr = heap;
+
+  while (addr < afterHeap) {
+    word header = *addr;
+
+    switch (Color(header)) {
+      case White:
+        addr[0] = Paint(header, Blue);
+        addr[1] = (word) freelist;
+        freelist = addr;
+        break;
+      case Black:
+        addr[0] = Paint(header, White);
+        break;
+      case Blue:
+        break;
+    }
+
+    addr += Length(header) + 1;
+  }
 }
 
 void collect(word s[], word sp) {
